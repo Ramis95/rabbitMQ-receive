@@ -1,5 +1,5 @@
 <?
 
-define('DB_HOST', 'vpaydb.tattelecom.ttc/ttcpay');
-define('DB_USER', 'online_user');
-define('DB_PASS', 'd83j3a');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'localhost');
+define('DB_PASS', 'localhost');
