@@ -1,2 +1,3 @@
 .idea
 /application/config/DB_config.php
+application/config/DB_config.php
