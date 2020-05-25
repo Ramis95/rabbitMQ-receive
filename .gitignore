@@ -2,4 +2,5 @@
 .gitignore
 /application/config
 application/config
+DB_config.php
 

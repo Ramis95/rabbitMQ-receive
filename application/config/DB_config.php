@@ -1,5 +1,5 @@
 <?
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'localhost');
-define('DB_PASS', 'localhost');
+define('DB_HOST', 'localhost1');
+define('DB_USER', 'localhost1');
+define('DB_PASS', 'localhost1');
