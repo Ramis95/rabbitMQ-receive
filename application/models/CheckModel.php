@@ -15,8 +15,8 @@ class CheckModel extends Model
 
 //		$connect = false;
 
-//		$connect = oci_connect(DB_USER, DB_PASS,DB_HOST);
-		$connect = oci_connect('online_user', 'd83j3a', 'vpaydb.tattelecom.ttc/ttcpay');
+		$connect = oci_connect(DB_USER, DB_PASS,DB_HOST);
+//		$connect = oci_connect('online_user', 'd83j3a', 'vpaydb.tattelecom.ttc/ttcpay');
 
 		if ($connect) {
 
