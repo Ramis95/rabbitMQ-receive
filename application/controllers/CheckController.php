@@ -50,33 +50,19 @@ class CheckController extends Rabbit
 
 		$check_db_result = $this->check_model->get_check($msg_body);
 
-		var_dump($check_db_result);
-		die();
-
-		if ($check_db_result) { // Проверяем все ли хорошо с бд, если да то создаем объект отправителя
-
-			if ($msg_body->response_type == 1) {
-				$sender = new SendEmail();
-			} elseif ($msg_body->response_type == 2) {
-				$sender = new SendSMS();
-			} elseif ($msg_body->response_type == 3) {
-				$sender = new SendTelegram();
-			} else {
-				// Завершаем выполнение
-				echo 'Нет такого способа ответа';
-				die();
-			}
-
+		if ($msg_body->response_type == 1) {
+			$sender = new SendEmail();
+		} elseif ($msg_body->response_type == 2) {
+			$sender = new SendSMS();
+		} elseif ($msg_body->response_type == 3) {
+			$sender = new SendTelegram();
 		} else {
-			// Если с бд что-то случилось, отправляем сигнал, что база отвалилась
 			// Завершаем выполнение
-			$response = [
-				'status' => 'error',
-				'message' => 'БД не отвечает',
-			];
-			echo json_encode($response);
+			echo json_encode('Нет такого способа ответа');
 			die();
 		}
+
+
 		$this->send_check($sender, $check_db_result);
 	}
 

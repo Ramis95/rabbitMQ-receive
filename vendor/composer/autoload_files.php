@@ -7,5 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'decc78cc4436b1292c6c0d151b19445c' => $vendorDir . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+    '5ef0d191856a30c0b39f3a693af798fe' => $baseDir . '/application/config/DB_config.php',
     '34d0c6d33007eb5facd249d4212c125d' => $baseDir . '/application/config/Rabbit_config.php',
 );

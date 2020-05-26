@@ -9,39 +9,39 @@ class CheckModel extends Model
 
 	public function get_check($msg_body)
 	{
-		// Здесь запрос в бд
+		$check_result = [];
 
-		$check_result = false;
+		if ($this->db_connect) { //Проверяем соединение с бд
 
-//		$connect = false;
+			// Фильтруем входные данные
+			$account_numb
+				       = strip_tags(htmlspecialchars(addslashes('104184489')));
+			$date_from = strip_tags(htmlspecialchars(addslashes('01.04.20')));
+			$date_to   = strip_tags(htmlspecialchars(addslashes('28.04.20')));
 
-		$connect = oci_connect(DB_USER, DB_PASS,DB_HOST);
-//		$connect = oci_connect('online_user', 'd83j3a', 'vpaydb.tattelecom.ttc/ttcpay');
+			$stid = oci_parse($this->db_connect, "select ot.ecr_registration_number, fiscal_document_number , fiscal_document_attribute from ofd_check o, ofd_transaction ot where o.id = ot.check_id
+ 									AND o.account_numb = :account_numb AND (o.DATE_IN BETWEEN to_date(:date_from,'dd.mm.yy') AND to_date(:date_to,'dd.mm.yy'))");
 
-		if ($connect) {
+			oci_bind_by_name($stid, ':account_numb', $account_numb, -1);
+			oci_bind_by_name($stid, ':date_from', $date_from, -1);
+			oci_bind_by_name($stid, ':date_to', $date_to, -1);
 
-			$stid = oci_parse($connect, "select ot.ecr_registration_number, fiscal_document_number , fiscal_document_attribute from ofd_check o, ofd_transaction ot where o.id = ot.check_id
- 									AND o.account_numb = '104184489' AND (o.DATE_IN BETWEEN to_date('01.04.20','dd.mm.yy') AND to_date('28.04.20','dd.mm.yy'))");
+			oci_execute($stid); // Делаем подготовленный запрос
 
-			oci_execute($stid);
-			echo "<table>\n";
 			while (($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
 			       != false) {
-				echo "<tr>\n";
-				foreach ($row as $item) {
-					echo "  <td>" . ($item !== null ? htmlspecialchars($item,
-							ENT_QUOTES) : "&nbsp;") . " | </td>\n";
-				}
-				echo "</tr>\n";
+				$check_result[] = $row;
 			}
-			echo "</table>\n";
+		} else {
+			// Если с бд что-то случилось, отправляем сигнал, что база отвалилась
+			// Завершаем выполнение
+			$response = [
+				'status'  => 'error',
+				'message' => 'БД не отвечает',
+			];
+			echo json_encode($response);
+			die();
 		}
-
-
-//		var_dump($connect);
-
-		echo 'ret';
-		die();
 
 		return $check_result;
 	}

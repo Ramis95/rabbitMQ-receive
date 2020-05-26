@@ -8,6 +8,7 @@ class ComposerStaticInitf95e76ddb5addfb6bc4b3ee8b2259c8d
 {
     public static $files = array (
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+        '5ef0d191856a30c0b39f3a693af798fe' => __DIR__ . '/../..' . '/application/config/DB_config.php',
         '34d0c6d33007eb5facd249d4212c125d' => __DIR__ . '/../..' . '/application/config/Rabbit_config.php',
     );
 
