@@ -50,6 +50,9 @@ class CheckController extends Rabbit
 
 		$check_db_result = $this->check_model->get_check($msg_body);
 
+		var_dump($check_db_result);
+		die();
+
 		if ($check_db_result) { // Проверяем все ли хорошо с бд, если да то создаем объект отправителя
 
 			if ($msg_body->response_type == 1) {
